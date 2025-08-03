@@ -5,6 +5,7 @@ import 'core/theme/theme_provider.dart';
 import 'features/clients/screens/clients_screen.dart';
 import 'features/projects/screens/projects_screen.dart';
 import 'features/timer/screens/timer_screen.dart';
+import 'features/reports/screens/reports_screen.dart';
 
 void main() {
   runApp(
@@ -40,7 +41,7 @@ class MainScreen extends ConsumerWidget {
     final isDark = themeMode == ThemeMode.dark;
 
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Clocky'),
@@ -56,6 +57,7 @@ class MainScreen extends ConsumerWidget {
             TimerScreen(),
             ProjectsScreen(),
             ClientsScreen(),
+            ReportsScreen(),
           ],
         ),
         bottomNavigationBar: const TabBar(
@@ -63,6 +65,7 @@ class MainScreen extends ConsumerWidget {
             Tab(icon: Icon(Icons.timer), text: 'Timer'),
             Tab(icon: Icon(Icons.folder), text: 'Projects'),
             Tab(icon: Icon(Icons.people), text: 'Clients'),
+            Tab(icon: Icon(Icons.bar_chart), text: 'Reports'),
           ],
         ),
       ),
