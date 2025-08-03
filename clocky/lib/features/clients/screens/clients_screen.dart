@@ -58,35 +58,51 @@ class ClientsScreen extends ConsumerWidget {
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Text('Name'),
+              ),
               TextField(
                 controller: nameController,
                 decoration: const InputDecoration(
-                  labelText: 'Name',
                   hintText: 'Enter client name',
                 ),
+              ),
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Text('Email'),
               ),
               TextField(
                 controller: emailController,
                 decoration: const InputDecoration(
-                  labelText: 'Email',
                   hintText: 'Enter client email (optional)',
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Text('Hourly Rate'),
+              ),
               TextField(
                 controller: rateController,
                 decoration: const InputDecoration(
-                  labelText: 'Hourly Rate',
                   hintText: 'Enter hourly rate',
                   prefixText: '\$ ',
                 ),
                 keyboardType: TextInputType.number,
               ),
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Text('Notes'),
+              ),
               TextField(
                 controller: notesController,
                 decoration: const InputDecoration(
-                  labelText: 'Notes',
                   hintText: 'Enter notes (optional)',
                 ),
                 maxLines: 3,

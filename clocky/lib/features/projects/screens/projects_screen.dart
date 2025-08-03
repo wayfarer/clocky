@@ -105,7 +105,12 @@ class ProjectsScreen extends ConsumerWidget {
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Text('Client'),
+              ),
               DropdownButtonFormField<String>(
                 value: selectedClientId,
                 items: clients.map((client) {
@@ -120,28 +125,40 @@ class ProjectsScreen extends ConsumerWidget {
                   }
                 },
                 decoration: const InputDecoration(
-                  labelText: 'Client',
+                  hintText: 'Select client',
                 ),
+              ),
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Text('Project Name'),
               ),
               TextField(
                 controller: nameController,
                 decoration: const InputDecoration(
-                  labelText: 'Project Name',
                   hintText: 'Enter project name',
                 ),
+              ),
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Text('Description'),
               ),
               TextField(
                 controller: descController,
                 decoration: const InputDecoration(
-                  labelText: 'Description',
                   hintText: 'Enter project description (optional)',
                 ),
                 maxLines: 3,
               ),
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Text('Budget'),
+              ),
               TextField(
                 controller: budgetController,
                 decoration: const InputDecoration(
-                  labelText: 'Budget',
                   hintText: 'Enter project budget (optional)',
                   prefixText: '\$ ',
                 ),
