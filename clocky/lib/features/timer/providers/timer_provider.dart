@@ -1,0 +1,109 @@
+import 'dart:async';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../data/models/time_entry.dart';
+import '../../../data/services/storage_service.dart';
+import '../../clients/providers/clients_provider.dart';
+
+class TimerState {
+  final TimeEntry? currentEntry;
+  final Duration? displayDuration;
+  final List<TimeEntry> savedEntries;
+
+  TimerState({
+    this.currentEntry,
+    this.displayDuration,
+    this.savedEntries = const [],
+  });
+
+  bool get isRunning => currentEntry != null;
+
+  TimerState copyWith({
+    TimeEntry? currentEntry,
+    Duration? displayDuration,
+    List<TimeEntry>? savedEntries,
+  }) {
+    return TimerState(
+      currentEntry: currentEntry ?? this.currentEntry,
+      displayDuration: displayDuration ?? this.displayDuration,
+      savedEntries: savedEntries ?? this.savedEntries,
+    );
+  }
+}
+
+class TimerNotifier extends StateNotifier<TimerState> {
+  final StorageService _storage;
+  Timer? _timer;
+
+  TimerNotifier(this._storage) : super(TimerState()) {
+    _loadSavedEntries();
+  }
+
+  Future<void> _loadSavedEntries() async {
+    final entries = await _storage.getTimeEntries();
+    state = state.copyWith(savedEntries: entries);
+  }
+
+  void startTimer({
+    required String projectId,
+    String? description,
+    bool isBillable = true,
+  }) {
+    if (state.currentEntry != null) return;
+
+    final entry = TimeEntry.create(
+      projectId: projectId,
+      description: description,
+      isBillable: isBillable,
+    );
+
+    state = state.copyWith(
+      currentEntry: entry,
+      displayDuration: Duration.zero,
+    );
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      state = state.copyWith(
+        displayDuration: DateTime.now().difference(state.currentEntry!.startTime),
+      );
+    });
+  }
+
+  Future<void> stopTimer() async {
+    if (state.currentEntry == null) return;
+
+    _timer?.cancel();
+    _timer = null;  // Clear the timer reference
+    
+    final completedEntry = state.currentEntry!.copyWith(
+      endTime: DateTime.now(),
+    );
+
+    await _storage.saveTimeEntry(completedEntry);
+    
+    final updatedEntries = [...state.savedEntries, completedEntry];
+    state = TimerState(  // Create a fresh state
+      currentEntry: null,
+      displayDuration: null,
+      savedEntries: updatedEntries,
+    );
+  }
+
+  void discardTimer() {
+    _timer?.cancel();
+    state = state.copyWith(
+      currentEntry: null,
+      displayDuration: null,
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+}
+
+final timerProvider = StateNotifierProvider<TimerNotifier, TimerState>((ref) {
+  final storage = ref.watch(storageServiceProvider);
+  return TimerNotifier(storage);
+});
