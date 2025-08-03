@@ -27,6 +27,8 @@ mixin _$TimeEntry {
   DateTime? get endTime => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   bool get isBillable => throw _privateConstructorUsedError;
+  List<DateTime> get pausedAt => throw _privateConstructorUsedError;
+  List<DateTime> get resumedAt => throw _privateConstructorUsedError;
 
   /// Serializes this TimeEntry to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,6 +52,8 @@ abstract class $TimeEntryCopyWith<$Res> {
     DateTime? endTime,
     String? description,
     bool isBillable,
+    List<DateTime> pausedAt,
+    List<DateTime> resumedAt,
   });
 }
 
@@ -74,6 +78,8 @@ class _$TimeEntryCopyWithImpl<$Res, $Val extends TimeEntry>
     Object? endTime = freezed,
     Object? description = freezed,
     Object? isBillable = null,
+    Object? pausedAt = null,
+    Object? resumedAt = null,
   }) {
     return _then(
       _value.copyWith(
@@ -101,6 +107,14 @@ class _$TimeEntryCopyWithImpl<$Res, $Val extends TimeEntry>
                 ? _value.isBillable
                 : isBillable // ignore: cast_nullable_to_non_nullable
                       as bool,
+            pausedAt: null == pausedAt
+                ? _value.pausedAt
+                : pausedAt // ignore: cast_nullable_to_non_nullable
+                      as List<DateTime>,
+            resumedAt: null == resumedAt
+                ? _value.resumedAt
+                : resumedAt // ignore: cast_nullable_to_non_nullable
+                      as List<DateTime>,
           )
           as $Val,
     );
@@ -123,6 +137,8 @@ abstract class _$$TimeEntryImplCopyWith<$Res>
     DateTime? endTime,
     String? description,
     bool isBillable,
+    List<DateTime> pausedAt,
+    List<DateTime> resumedAt,
   });
 }
 
@@ -146,6 +162,8 @@ class __$$TimeEntryImplCopyWithImpl<$Res>
     Object? endTime = freezed,
     Object? description = freezed,
     Object? isBillable = null,
+    Object? pausedAt = null,
+    Object? resumedAt = null,
   }) {
     return _then(
       _$TimeEntryImpl(
@@ -173,6 +191,14 @@ class __$$TimeEntryImplCopyWithImpl<$Res>
             ? _value.isBillable
             : isBillable // ignore: cast_nullable_to_non_nullable
                   as bool,
+        pausedAt: null == pausedAt
+            ? _value._pausedAt
+            : pausedAt // ignore: cast_nullable_to_non_nullable
+                  as List<DateTime>,
+        resumedAt: null == resumedAt
+            ? _value._resumedAt
+            : resumedAt // ignore: cast_nullable_to_non_nullable
+                  as List<DateTime>,
       ),
     );
   }
@@ -188,7 +214,11 @@ class _$TimeEntryImpl extends _TimeEntry {
     this.endTime,
     this.description,
     this.isBillable = true,
-  }) : super._();
+    final List<DateTime> pausedAt = const [],
+    final List<DateTime> resumedAt = const [],
+  }) : _pausedAt = pausedAt,
+       _resumedAt = resumedAt,
+       super._();
 
   factory _$TimeEntryImpl.fromJson(Map<String, dynamic> json) =>
       _$$TimeEntryImplFromJson(json);
@@ -206,10 +236,27 @@ class _$TimeEntryImpl extends _TimeEntry {
   @override
   @JsonKey()
   final bool isBillable;
+  final List<DateTime> _pausedAt;
+  @override
+  @JsonKey()
+  List<DateTime> get pausedAt {
+    if (_pausedAt is EqualUnmodifiableListView) return _pausedAt;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_pausedAt);
+  }
+
+  final List<DateTime> _resumedAt;
+  @override
+  @JsonKey()
+  List<DateTime> get resumedAt {
+    if (_resumedAt is EqualUnmodifiableListView) return _resumedAt;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_resumedAt);
+  }
 
   @override
   String toString() {
-    return 'TimeEntry(id: $id, projectId: $projectId, startTime: $startTime, endTime: $endTime, description: $description, isBillable: $isBillable)';
+    return 'TimeEntry(id: $id, projectId: $projectId, startTime: $startTime, endTime: $endTime, description: $description, isBillable: $isBillable, pausedAt: $pausedAt, resumedAt: $resumedAt)';
   }
 
   @override
@@ -226,7 +273,12 @@ class _$TimeEntryImpl extends _TimeEntry {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.isBillable, isBillable) ||
-                other.isBillable == isBillable));
+                other.isBillable == isBillable) &&
+            const DeepCollectionEquality().equals(other._pausedAt, _pausedAt) &&
+            const DeepCollectionEquality().equals(
+              other._resumedAt,
+              _resumedAt,
+            ));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -239,6 +291,8 @@ class _$TimeEntryImpl extends _TimeEntry {
     endTime,
     description,
     isBillable,
+    const DeepCollectionEquality().hash(_pausedAt),
+    const DeepCollectionEquality().hash(_resumedAt),
   );
 
   /// Create a copy of TimeEntry
@@ -263,6 +317,8 @@ abstract class _TimeEntry extends TimeEntry {
     final DateTime? endTime,
     final String? description,
     final bool isBillable,
+    final List<DateTime> pausedAt,
+    final List<DateTime> resumedAt,
   }) = _$TimeEntryImpl;
   const _TimeEntry._() : super._();
 
@@ -281,6 +337,10 @@ abstract class _TimeEntry extends TimeEntry {
   String? get description;
   @override
   bool get isBillable;
+  @override
+  List<DateTime> get pausedAt;
+  @override
+  List<DateTime> get resumedAt;
 
   /// Create a copy of TimeEntry
   /// with the given fields replaced by the non-null parameter values.

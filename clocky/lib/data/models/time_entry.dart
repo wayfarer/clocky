@@ -15,6 +15,8 @@ class TimeEntry with _$TimeEntry {
     DateTime? endTime,
     String? description,
     @Default(true) bool isBillable,
+    @Default([]) List<DateTime> pausedAt,
+    @Default([]) List<DateTime> resumedAt,
   }) = _TimeEntry;
 
   factory TimeEntry.create({
@@ -32,10 +34,35 @@ class TimeEntry with _$TimeEntry {
   }
 
   Duration get duration {
-    return endTime?.difference(startTime) ?? DateTime.now().difference(startTime);
+    Duration total = endTime?.difference(startTime) ?? DateTime.now().difference(startTime);
+    
+    // Subtract paused durations
+    for (int i = 0; i < pausedAt.length; i++) {
+      final pauseTime = pausedAt[i];
+      final resumeTime = i < resumedAt.length ? resumedAt[i] : DateTime.now();
+      total -= resumeTime.difference(pauseTime);
+    }
+    
+    return total;
   }
 
   bool get isActive => endTime == null;
+  
+  bool get isPaused => pausedAt.length > resumedAt.length;
+
+  TimeEntry pause() {
+    if (isPaused || !isActive) return this;
+    return copyWith(
+      pausedAt: [...pausedAt, DateTime.now()],
+    );
+  }
+
+  TimeEntry resume() {
+    if (!isPaused || !isActive) return this;
+    return copyWith(
+      resumedAt: [...resumedAt, DateTime.now()],
+    );
+  }
 
   double calculateBillableAmount(double hourlyRate) {
     final hours = duration.inMinutes / 60.0;

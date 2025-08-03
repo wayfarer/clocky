@@ -6,6 +6,7 @@ import 'features/clients/screens/clients_screen.dart';
 import 'features/projects/screens/projects_screen.dart';
 import 'features/timer/screens/timer_screen.dart';
 import 'features/reports/screens/reports_screen.dart';
+import 'features/timer/widgets/running_timer_indicator.dart';
 
 void main() {
   runApp(
@@ -45,7 +46,10 @@ class MainScreen extends ConsumerWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Clocky'),
+          centerTitle: false,
           actions: [
+            const RunningTimerIndicator(),
+            const SizedBox(width: 8),
             IconButton(
               icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
               onPressed: () => ref.read(themeProvider.notifier).toggleTheme(),

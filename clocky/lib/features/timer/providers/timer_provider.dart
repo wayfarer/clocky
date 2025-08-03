@@ -61,11 +61,7 @@ class TimerNotifier extends StateNotifier<TimerState> {
       displayDuration: Duration.zero,
     );
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      state = state.copyWith(
-        displayDuration: DateTime.now().difference(state.currentEntry!.startTime),
-      );
-    });
+    _startTicking();
   }
 
   Future<void> stopTimer() async {
@@ -107,12 +103,42 @@ class TimerNotifier extends StateNotifier<TimerState> {
     await _storage.saveTimeEntries(updatedEntries);
   }
 
+  void pauseTimer() {
+    if (state.currentEntry == null) return;
+    
+    _timer?.cancel();
+    _timer = null;
+
+    final pausedEntry = state.currentEntry!.pause();
+    state = state.copyWith(currentEntry: pausedEntry);
+  }
+
+  void resumeTimer() {
+    if (state.currentEntry == null) return;
+    
+    final resumedEntry = state.currentEntry!.resume();
+    state = state.copyWith(currentEntry: resumedEntry);
+    
+    _startTicking();
+  }
+
   void discardTimer() {
     _timer?.cancel();
+    _timer = null;
     state = state.copyWith(
       currentEntry: null,
       displayDuration: null,
     );
+  }
+
+  void _startTicking() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (state.currentEntry == null) return;
+      state = state.copyWith(
+        displayDuration: state.currentEntry!.duration,
+      );
+    });
   }
 
   @override
