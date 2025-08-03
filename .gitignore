@@ -8,6 +8,14 @@
 build/
 *.freezed.dart
 *.g.dart
+pubspec.lock
+
+# Generated platform files
+**/generated_plugin_registrant.*
+**/generated_plugins.cmake
+
+# Platform specific
+**/Podfile.lock
 
 # IDE specific
 .idea/
