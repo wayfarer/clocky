@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
 import 'features/clients/screens/clients_screen.dart';
-import 'features/projects/screens/projects_screen.dart';
+import 'features/projects/screens/project_dashboard_screen.dart';
 import 'features/timer/screens/timer_screen.dart';
 import 'features/reports/screens/reports_screen.dart';
 import 'features/timer/widgets/running_timer_indicator.dart';
@@ -59,7 +59,7 @@ class MainScreen extends ConsumerWidget {
         body: const TabBarView(
           children: [
             TimerScreen(),
-            ProjectsScreen(),
+            ProjectDashboardScreen(),
             ClientsScreen(),
             ReportsScreen(),
           ],
