@@ -35,6 +35,13 @@ class TimeEntry with _$TimeEntry {
     return endTime?.difference(startTime) ?? DateTime.now().difference(startTime);
   }
 
+  bool get isActive => endTime == null;
+
+  double calculateBillableAmount(double hourlyRate) {
+    final hours = duration.inMinutes / 60.0;
+    return isBillable ? hours * hourlyRate : 0;
+  }
+
   factory TimeEntry.fromJson(Map<String, dynamic> json) =>
       _$TimeEntryFromJson(json);
 }

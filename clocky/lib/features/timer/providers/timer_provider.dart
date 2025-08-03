@@ -88,6 +88,25 @@ class TimerNotifier extends StateNotifier<TimerState> {
     );
   }
 
+  Future<void> updateTimeEntry(TimeEntry entry) async {
+    await _storage.saveTimeEntry(entry);
+    
+    final updatedEntries = [
+      for (final e in state.savedEntries)
+        if (e.id == entry.id) entry else e
+    ];
+    
+    state = state.copyWith(savedEntries: updatedEntries);
+  }
+
+  Future<void> deleteTimeEntry(TimeEntry entry) async {
+    final updatedEntries = state.savedEntries.where((e) => e.id != entry.id).toList();
+    state = state.copyWith(savedEntries: updatedEntries);
+    
+    // Update storage to reflect deletion
+    await _storage.saveTimeEntries(updatedEntries);
+  }
+
   void discardTimer() {
     _timer?.cancel();
     state = state.copyWith(

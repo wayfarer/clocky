@@ -99,4 +99,12 @@ class StorageService {
     final entries = await getTimeEntries();
     return entries.where((e) => e.projectId == projectId).toList();
   }
+
+  Future<void> saveTimeEntries(List<TimeEntry> entries) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(
+      _timeEntriesKey,
+      jsonEncode(entries.map((e) => e.toJson()).toList()),
+    );
+  }
 }

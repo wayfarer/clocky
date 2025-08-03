@@ -6,6 +6,7 @@ import '../../../data/models/time_entry.dart';
 import '../providers/timer_provider.dart';
 import '../../projects/providers/projects_provider.dart';
 import '../../clients/providers/clients_provider.dart';
+import '../widgets/time_entry_dialog.dart';
 
 final selectedProjectProvider = StateProvider<String?>((ref) => null);
 
@@ -50,7 +51,7 @@ class TimerScreen extends ConsumerWidget {
           _buildTimerSection(context, ref, timerState),
           const Divider(height: 32),
           Expanded(
-            child: _buildTimeEntriesList(timerState.savedEntries, projects, clients),
+            child: _buildTimeEntriesList(timerState.savedEntries, projects, clients, ref),
           ),
         ],
       ),
@@ -155,6 +156,7 @@ class TimerScreen extends ConsumerWidget {
     List<TimeEntry> entries,
     List<Project> projects,
     List<Client> clients,
+    WidgetRef ref,
   ) {
     if (entries.isEmpty) {
       return const Center(
@@ -185,6 +187,8 @@ class TimerScreen extends ConsumerWidget {
         final hours = duration.inHours;
         final minutes = (duration.inMinutes % 60);
         
+        final amount = entry.calculateBillableAmount(client.hourlyRate);
+        
         return ListTile(
           title: Text(project.name),
           subtitle: Text(client.name),
@@ -198,7 +202,7 @@ class TimerScreen extends ConsumerWidget {
               ),
               if (entry.isBillable)
                 Text(
-                  '\$${((hours + minutes / 60.0) * client.hourlyRate).toStringAsFixed(2)}',
+                  '\$${amount.toStringAsFixed(2)}',
                   style: TextStyle(
                     color: Colors.green[700],
                     fontWeight: FontWeight.w500,
@@ -206,6 +210,44 @@ class TimerScreen extends ConsumerWidget {
                 ),
             ],
           ),
+          onTap: () {
+            final timerNotifier = ref.read(timerProvider.notifier);
+            showDialog(
+              context: context,
+              builder: (context) => TimeEntryDialog(
+                entry: entry,
+                onSave: (updatedEntry) {
+                  timerNotifier.updateTimeEntry(updatedEntry);
+                },
+                onDelete: () {
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Delete Time Entry'),
+                      content: const Text('Are you sure you want to delete this time entry?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Cancel'),
+                        ),
+                        FilledButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            timerNotifier.deleteTimeEntry(entry);
+                          },
+                          style: FilledButton.styleFrom(
+                            backgroundColor: Theme.of(context).colorScheme.error,
+                          ),
+                          child: const Text('Delete'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            );
+          },
         );
       },
     );
