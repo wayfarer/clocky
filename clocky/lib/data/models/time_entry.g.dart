@@ -16,6 +16,16 @@ _$TimeEntryImpl _$$TimeEntryImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['endTime'] as String),
       description: json['description'] as String?,
       isBillable: json['isBillable'] as bool? ?? true,
+      pausedAt:
+          (json['pausedAt'] as List<dynamic>?)
+              ?.map((e) => DateTime.parse(e as String))
+              .toList() ??
+          const [],
+      resumedAt:
+          (json['resumedAt'] as List<dynamic>?)
+              ?.map((e) => DateTime.parse(e as String))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$TimeEntryImplToJson(_$TimeEntryImpl instance) =>
@@ -26,4 +36,6 @@ Map<String, dynamic> _$$TimeEntryImplToJson(_$TimeEntryImpl instance) =>
       'endTime': instance.endTime?.toIso8601String(),
       'description': instance.description,
       'isBillable': instance.isBillable,
+      'pausedAt': instance.pausedAt.map((e) => e.toIso8601String()).toList(),
+      'resumedAt': instance.resumedAt.map((e) => e.toIso8601String()).toList(),
     };

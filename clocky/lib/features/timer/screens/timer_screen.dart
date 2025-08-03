@@ -6,6 +6,7 @@ import '../../../data/models/time_entry.dart';
 import '../providers/timer_provider.dart';
 import '../../projects/providers/projects_provider.dart';
 import '../../clients/providers/clients_provider.dart';
+import '../widgets/start_timer_dialog.dart';
 import '../widgets/time_entry_dialog.dart';
 
 final selectedProjectProvider = StateProvider<String?>((ref) => null);
@@ -90,64 +91,69 @@ class TimerScreen extends ConsumerWidget {
   Widget _buildControls(WidgetRef ref, bool isRunning) {
     final projects = ref.watch(projectsProvider);
     final clients = ref.watch(clientsProvider);
+    final currentEntry = ref.watch(timerProvider).currentEntry;
     
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         if (!isRunning) ...[
-          DropdownButtonFormField<String>(
-            items: projects.map((project) {
-              final client = clients.firstWhere(
-                (c) => c.id == project.clientId,
-                orElse: () => Client.create(name: 'Unknown', hourlyRate: 0),
+          FilledButton.icon(
+            onPressed: () {
+              showDialog(
+                context: ref.context,
+                builder: (context) => StartTimerDialog(
+                  projects: projects,
+                  clients: clients,
+                  onStart: (projectId, description, isBillable) {
+                    ref.read(timerProvider.notifier).startTimer(
+                      projectId: projectId,
+                      description: description,
+                      isBillable: isBillable,
+                    );
+                  },
+                ),
               );
-              return DropdownMenuItem(
-                value: project.id,
-                child: Text('${client.name} - ${project.name}'),
-              );
-            }).toList(),
-            onChanged: (value) {
-              ref.read(selectedProjectProvider.notifier).state = value;
             },
-            decoration: const InputDecoration(
-              labelText: 'Select Project',
-              border: OutlineInputBorder(),
-            ),
+            icon: const Icon(Icons.play_arrow),
+            label: const Text('Start Timer'),
           ),
-          const SizedBox(height: 20),
-        ],
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: isRunning
-                  ? null
-                  : () {
-                      final projectId = ref.read(selectedProjectProvider);
-                      if (projectId == null) {
-                        ScaffoldMessenger.of(ref.context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Please select a project first'),
-                          ),
-                        );
-                        return;
-                      }
-                      
-                      ref.read(timerProvider.notifier).startTimer(
-                            projectId: projectId,
-                          );
-                    },
-              child: const Text('Start'),
-            ),
-            const SizedBox(width: 20),
-            ElevatedButton(
-              onPressed: isRunning
-                  ? () => ref.read(timerProvider.notifier).stopTimer()
-                  : null,
-              child: const Text('Stop'),
+        ] else ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (currentEntry?.isPaused ?? false) ...[
+                FilledButton.icon(
+                  onPressed: () => ref.read(timerProvider.notifier).resumeTimer(),
+                  icon: const Icon(Icons.play_arrow),
+                  label: const Text('Resume'),
+                ),
+              ] else ...[
+                FilledButton.icon(
+                  onPressed: () => ref.read(timerProvider.notifier).pauseTimer(),
+                  icon: const Icon(Icons.pause),
+                  label: const Text('Pause'),
+                ),
+              ],
+              const SizedBox(width: 16),
+              FilledButton.icon(
+                onPressed: () => ref.read(timerProvider.notifier).stopTimer(),
+                icon: const Icon(Icons.stop),
+                label: const Text('Stop'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: Theme.of(ref.context).colorScheme.error,
+                ),
+              ),
+            ],
+          ),
+          if (currentEntry != null) ...[
+            const SizedBox(height: 16),
+            Text(
+              currentEntry.description ?? 'No description',
+              style: Theme.of(ref.context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
             ),
           ],
-        ),
+        ],
       ],
     );
   }
