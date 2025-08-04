@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/models/client.dart';
+import '../../../data/services/export_service.dart';
+import '../../../data/providers/file_service_provider.dart';
 import '../providers/clients_provider.dart';
+import '../../projects/providers/projects_provider.dart';
+import '../../timer/providers/timer_provider.dart';
+import '../widgets/client_export_dialog.dart';
 
 class ClientsScreen extends ConsumerWidget {
   const ClientsScreen({super.key});
@@ -25,9 +30,18 @@ class ClientsScreen extends ConsumerWidget {
                 return ListTile(
                   title: Text(client.name),
                   subtitle: Text('Rate: \$${client.hourlyRate}/hr'),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.edit),
-                    onPressed: () => _showClientDialog(context, ref, client),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.download),
+                        onPressed: () => _showExportDialog(context, ref, client),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () => _showClientDialog(context, ref, client),
+                      ),
+                    ],
                   ),
                 );
               },
@@ -35,6 +49,69 @@ class ClientsScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showClientDialog(context, ref),
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  Future<void> _showExportDialog(BuildContext context, WidgetRef ref, Client client) async {
+    showDialog(
+      context: context,
+      builder: (context) => ClientExportDialog(
+        client: client,
+        onExport: (startDate, endDate) async {
+          final exportService = ExportService();
+          final projects = ref.read(projectsProvider);
+          final timeEntries = ref.read(timerProvider).savedEntries;
+
+          final csv = exportService.generateClientCsv(
+            client: client,
+            projects: projects,
+            entries: timeEntries,
+            startDate: startDate,
+            endDate: endDate,
+          );
+
+          final fileService = ref.read(fileServiceProvider);
+          final fileName = 'clocky_${client.name.toLowerCase().replaceAll(' ', '_')}_'
+              '${startDate.year}${startDate.month.toString().padLeft(2, '0')}.csv';
+          
+          final filePath = await fileService.saveFile(
+            fileName: fileName,
+            content: csv,
+          );
+
+          if (!context.mounted) return;
+
+          if (filePath != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('File exported successfully'),
+                action: SnackBarAction(
+                  label: 'Show File',
+                  onPressed: () {
+                    fileService.showFileInExplorer(filePath).then((success) {
+                      if (!success && context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Could not open file location'),
+                            backgroundColor: Colors.orange,
+                          ),
+                        );
+                      }
+                    });
+                  },
+                ),
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Failed to export file'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        },
       ),
     );
   }
