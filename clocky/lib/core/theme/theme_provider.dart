@@ -9,7 +9,7 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {
 class ThemeNotifier extends StateNotifier<ThemeMode> {
   static const _themeKey = 'theme_mode';
   
-  ThemeNotifier() : super(ThemeMode.system) {
+  ThemeNotifier() : super(ThemeMode.dark) {
     _loadTheme();
   }
 
@@ -19,7 +19,7 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
     if (savedTheme != null) {
       state = ThemeMode.values.firstWhere(
         (mode) => mode.toString() == savedTheme,
-        orElse: () => ThemeMode.system,
+        orElse: () => ThemeMode.dark,
       );
     }
   }

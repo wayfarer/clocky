@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
@@ -24,11 +25,19 @@ class MyApp extends ConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     
     return MaterialApp(
-      title: 'Clocky',
+      title: 'Clocky Timer',
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       themeMode: themeMode,
       home: const MainScreen(),
+      builder: (context, child) {
+        return IconTheme(
+          data: IconThemeData(
+            color: Theme.of(context).primaryColor,
+          ),
+          child: child!,
+        );
+      },
     );
   }
 }
@@ -45,7 +54,27 @@ class MainScreen extends ConsumerWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Clocky'),
+          title: Row(
+            children: [
+              Icon(Icons.schedule, size: 24),
+              SizedBox(width: 8),
+              Text(
+                'Clocky ',
+                style: GoogleFonts.rubikVinyl(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                'Timer',
+                style: GoogleFonts.orbitron(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 2,
+                ),
+              ),
+            ],
+          ),
           centerTitle: false,
           actions: [
             const RunningTimerIndicator(),
