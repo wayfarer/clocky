@@ -2,27 +2,50 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
+/// Handles file system operations with platform-specific implementations.
+/// 
+/// Current platform support:
+/// - Desktop (Windows, macOS, Linux): Full support for saving and opening files
+/// - Mobile (iOS, Android): Not yet implemented
+/// - Web: Not yet implemented
+/// 
+/// Usage:
+/// ```dart
+/// final fileService = FileService();
+/// final filePath = await fileService.saveFile(
+///   fileName: 'example.csv',
+///   content: 'Hello, World!',
+/// );
+/// if (filePath != null) {
+///   await fileService.showFileInExplorer(filePath);
+/// }
+/// ```
 class FileService {
   /// Saves data to a file on desktop platforms.
   /// 
   /// Returns the path to the saved file if successful, null if failed or unsupported platform.
   /// 
+  /// Platform-specific behavior:
+  /// - Windows: Saves to user's Downloads folder
+  /// - macOS: Saves to app's sandboxed Downloads directory
+  /// - Linux: Saves to user's Downloads folder
+  /// - Mobile/Web: Returns null (not implemented)
+  /// 
   /// TODO: Implement mobile file saving:
-  /// - iOS: Use share sheet or files app
-  /// - Android: Use SAF (Storage Access Framework)
+  /// - iOS: 
+  ///   - Use share sheet for saving files
+  ///   - Implement file provider for Files app integration
+  ///   - Handle proper file associations
+  /// 
+  /// - Android:
+  ///   - Use Storage Access Framework (SAF)
+  ///   - Implement proper file provider
+  ///   - Handle scoped storage requirements
   /// 
   /// TODO: Implement web file saving:
-  /// - Use download API
+  /// - Use download API with proper MIME types
   /// - Handle CORS and security restrictions
-  
-  /// Sanitizes a filename by removing or replacing invalid characters
-  String sanitizeFileName(String fileName) {
-    // Replace invalid characters with underscores
-    final sanitized = fileName.replaceAll(RegExp(r'[<>:"/\\|?*]'), '_');
-    // Remove any multiple underscores
-    return sanitized.replaceAll(RegExp(r'_+'), '_');
-  }
-
+  /// - Implement proper file naming
   Future<String?> saveFile({
     required String fileName,
     required String content,
@@ -75,12 +98,26 @@ class FileService {
       }
     }
     
-    // TODO: Handle other platforms
+    // Not supported on mobile/web yet
     return null;
   }
 
-  /// Shows the file in the system file explorer (Finder on macOS, Explorer on Windows).
+  /// Shows the file in the system file explorer.
+  /// 
+  /// Platform-specific behavior:
+  /// - macOS: Opens Finder and selects the file
+  /// - Windows: Opens Explorer and selects the file
+  /// - Linux: Opens the parent directory
+  /// - Mobile/Web: Returns false (not implemented)
+  /// 
   /// Returns true if successful, false otherwise.
+  /// 
+  /// TODO: Implement mobile file opening:
+  /// - iOS: Use UIDocumentInteractionController
+  /// - Android: Use Intent.ACTION_VIEW
+  /// 
+  /// TODO: Implement web file opening:
+  /// - Not applicable (files are downloaded directly)
   Future<bool> showFileInExplorer(String filePath) async {
     try {
       if (Platform.isMacOS) {
@@ -101,5 +138,15 @@ class FileService {
       debugPrint('Error showing file: $e');
     }
     return false;
+  }
+
+  /// Sanitizes a filename by removing or replacing invalid characters.
+  /// 
+  /// This ensures the filename is valid across all supported platforms.
+  String sanitizeFileName(String fileName) {
+    // Replace invalid characters with underscores
+    final sanitized = fileName.replaceAll(RegExp(r'[<>:"/\\|?*]'), '_');
+    // Remove any multiple underscores
+    return sanitized.replaceAll(RegExp(r'_+'), '_');
   }
 }

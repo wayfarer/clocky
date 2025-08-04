@@ -1,5 +1,7 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod';
 import '../../../data/models/client.dart';
 import '../../../data/services/export_service.dart';
 import '../../../data/providers/file_service_provider.dart';
@@ -30,19 +32,24 @@ class ClientsScreen extends ConsumerWidget {
                 return ListTile(
                   title: Text(client.name),
                   subtitle: Text('Rate: \$${client.hourlyRate}/hr'),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.download),
-                        onPressed: () => _showExportDialog(context, ref, client),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () => _showClientDialog(context, ref, client),
-                      ),
-                    ],
-                  ),
+                                   trailing: Row(
+                   mainAxisSize: MainAxisSize.min,
+                   children: [
+                     // Only show export on desktop platforms where file system access is available
+                     if (!kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) ...[
+                       IconButton(
+                         icon: const Icon(Icons.download),
+                         tooltip: 'Export client data to CSV',
+                         onPressed: () => _showExportDialog(context, ref, client),
+                       ),
+                     ],
+                     IconButton(
+                       icon: const Icon(Icons.edit),
+                       tooltip: 'Edit client',
+                       onPressed: () => _showClientDialog(context, ref, client),
+                     ),
+                   ],
+                 ),
                 );
               },
             ),
