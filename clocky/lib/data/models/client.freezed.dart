@@ -12,8 +12,7 @@ part of 'client.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Client _$ClientFromJson(Map<String, dynamic> json) {
   return _Client.fromJson(json);
@@ -42,14 +41,13 @@ abstract class $ClientCopyWith<$Res> {
   factory $ClientCopyWith(Client value, $Res Function(Client) then) =
       _$ClientCopyWithImpl<$Res, Client>;
   @useResult
-  $Res call({
-    String id,
-    String name,
-    String? email,
-    double hourlyRate,
-    String? notes,
-    DateTime createdAt,
-  });
+  $Res call(
+      {String id,
+      String name,
+      String? email,
+      double hourlyRate,
+      String? notes,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -74,54 +72,49 @@ class _$ClientCopyWithImpl<$Res, $Val extends Client>
     Object? notes = freezed,
     Object? createdAt = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            name: null == name
-                ? _value.name
-                : name // ignore: cast_nullable_to_non_nullable
-                      as String,
-            email: freezed == email
-                ? _value.email
-                : email // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            hourlyRate: null == hourlyRate
-                ? _value.hourlyRate
-                : hourlyRate // ignore: cast_nullable_to_non_nullable
-                      as double,
-            notes: freezed == notes
-                ? _value.notes
-                : notes // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            createdAt: null == createdAt
-                ? _value.createdAt
-                : createdAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      hourlyRate: null == hourlyRate
+          ? _value.hourlyRate
+          : hourlyRate // ignore: cast_nullable_to_non_nullable
+              as double,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$ClientImplCopyWith<$Res> implements $ClientCopyWith<$Res> {
   factory _$$ClientImplCopyWith(
-    _$ClientImpl value,
-    $Res Function(_$ClientImpl) then,
-  ) = __$$ClientImplCopyWithImpl<$Res>;
+          _$ClientImpl value, $Res Function(_$ClientImpl) then) =
+      __$$ClientImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String id,
-    String name,
-    String? email,
-    double hourlyRate,
-    String? notes,
-    DateTime createdAt,
-  });
+  $Res call(
+      {String id,
+      String name,
+      String? email,
+      double hourlyRate,
+      String? notes,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -129,9 +122,8 @@ class __$$ClientImplCopyWithImpl<$Res>
     extends _$ClientCopyWithImpl<$Res, _$ClientImpl>
     implements _$$ClientImplCopyWith<$Res> {
   __$$ClientImplCopyWithImpl(
-    _$ClientImpl _value,
-    $Res Function(_$ClientImpl) _then,
-  ) : super(_value, _then);
+      _$ClientImpl _value, $Res Function(_$ClientImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of Client
   /// with the given fields replaced by the non-null parameter values.
@@ -145,48 +137,46 @@ class __$$ClientImplCopyWithImpl<$Res>
     Object? notes = freezed,
     Object? createdAt = null,
   }) {
-    return _then(
-      _$ClientImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        name: null == name
-            ? _value.name
-            : name // ignore: cast_nullable_to_non_nullable
-                  as String,
-        email: freezed == email
-            ? _value.email
-            : email // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        hourlyRate: null == hourlyRate
-            ? _value.hourlyRate
-            : hourlyRate // ignore: cast_nullable_to_non_nullable
-                  as double,
-        notes: freezed == notes
-            ? _value.notes
-            : notes // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        createdAt: null == createdAt
-            ? _value.createdAt
-            : createdAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
-      ),
-    );
+    return _then(_$ClientImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      hourlyRate: null == hourlyRate
+          ? _value.hourlyRate
+          : hourlyRate // ignore: cast_nullable_to_non_nullable
+              as double,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$ClientImpl extends _Client {
-  const _$ClientImpl({
-    required this.id,
-    required this.name,
-    this.email,
-    required this.hourlyRate,
-    this.notes,
-    required this.createdAt,
-  }) : super._();
+  const _$ClientImpl(
+      {required this.id,
+      required this.name,
+      this.email,
+      required this.hourlyRate,
+      this.notes,
+      required this.createdAt})
+      : super._();
 
   factory _$ClientImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClientImplFromJson(json);
@@ -239,19 +229,20 @@ class _$ClientImpl extends _Client {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ClientImplToJson(this);
+    return _$$ClientImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _Client extends Client {
-  const factory _Client({
-    required final String id,
-    required final String name,
-    final String? email,
-    required final double hourlyRate,
-    final String? notes,
-    required final DateTime createdAt,
-  }) = _$ClientImpl;
+  const factory _Client(
+      {required final String id,
+      required final String name,
+      final String? email,
+      required final double hourlyRate,
+      final String? notes,
+      required final DateTime createdAt}) = _$ClientImpl;
   const _Client._() : super._();
 
   factory _Client.fromJson(Map<String, dynamic> json) = _$ClientImpl.fromJson;

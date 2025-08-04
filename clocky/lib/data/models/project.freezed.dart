@@ -12,8 +12,7 @@ part of 'project.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Project _$ProjectFromJson(Map<String, dynamic> json) {
   return _Project.fromJson(json);
@@ -43,15 +42,14 @@ abstract class $ProjectCopyWith<$Res> {
   factory $ProjectCopyWith(Project value, $Res Function(Project) then) =
       _$ProjectCopyWithImpl<$Res, Project>;
   @useResult
-  $Res call({
-    String id,
-    String clientId,
-    String name,
-    String? description,
-    double? budget,
-    DateTime createdAt,
-    bool isActive,
-  });
+  $Res call(
+      {String id,
+      String clientId,
+      String name,
+      String? description,
+      double? budget,
+      DateTime createdAt,
+      bool isActive});
 }
 
 /// @nodoc
@@ -77,59 +75,54 @@ class _$ProjectCopyWithImpl<$Res, $Val extends Project>
     Object? createdAt = null,
     Object? isActive = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            clientId: null == clientId
-                ? _value.clientId
-                : clientId // ignore: cast_nullable_to_non_nullable
-                      as String,
-            name: null == name
-                ? _value.name
-                : name // ignore: cast_nullable_to_non_nullable
-                      as String,
-            description: freezed == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            budget: freezed == budget
-                ? _value.budget
-                : budget // ignore: cast_nullable_to_non_nullable
-                      as double?,
-            createdAt: null == createdAt
-                ? _value.createdAt
-                : createdAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
-            isActive: null == isActive
-                ? _value.isActive
-                : isActive // ignore: cast_nullable_to_non_nullable
-                      as bool,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      clientId: null == clientId
+          ? _value.clientId
+          : clientId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      budget: freezed == budget
+          ? _value.budget
+          : budget // ignore: cast_nullable_to_non_nullable
+              as double?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$ProjectImplCopyWith<$Res> implements $ProjectCopyWith<$Res> {
   factory _$$ProjectImplCopyWith(
-    _$ProjectImpl value,
-    $Res Function(_$ProjectImpl) then,
-  ) = __$$ProjectImplCopyWithImpl<$Res>;
+          _$ProjectImpl value, $Res Function(_$ProjectImpl) then) =
+      __$$ProjectImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String id,
-    String clientId,
-    String name,
-    String? description,
-    double? budget,
-    DateTime createdAt,
-    bool isActive,
-  });
+  $Res call(
+      {String id,
+      String clientId,
+      String name,
+      String? description,
+      double? budget,
+      DateTime createdAt,
+      bool isActive});
 }
 
 /// @nodoc
@@ -137,9 +130,8 @@ class __$$ProjectImplCopyWithImpl<$Res>
     extends _$ProjectCopyWithImpl<$Res, _$ProjectImpl>
     implements _$$ProjectImplCopyWith<$Res> {
   __$$ProjectImplCopyWithImpl(
-    _$ProjectImpl _value,
-    $Res Function(_$ProjectImpl) _then,
-  ) : super(_value, _then);
+      _$ProjectImpl _value, $Res Function(_$ProjectImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of Project
   /// with the given fields replaced by the non-null parameter values.
@@ -154,53 +146,51 @@ class __$$ProjectImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? isActive = null,
   }) {
-    return _then(
-      _$ProjectImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        clientId: null == clientId
-            ? _value.clientId
-            : clientId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        name: null == name
-            ? _value.name
-            : name // ignore: cast_nullable_to_non_nullable
-                  as String,
-        description: freezed == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        budget: freezed == budget
-            ? _value.budget
-            : budget // ignore: cast_nullable_to_non_nullable
-                  as double?,
-        createdAt: null == createdAt
-            ? _value.createdAt
-            : createdAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
-        isActive: null == isActive
-            ? _value.isActive
-            : isActive // ignore: cast_nullable_to_non_nullable
-                  as bool,
-      ),
-    );
+    return _then(_$ProjectImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      clientId: null == clientId
+          ? _value.clientId
+          : clientId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      budget: freezed == budget
+          ? _value.budget
+          : budget // ignore: cast_nullable_to_non_nullable
+              as double?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$ProjectImpl extends _Project {
-  const _$ProjectImpl({
-    required this.id,
-    required this.clientId,
-    required this.name,
-    this.description,
-    this.budget,
-    required this.createdAt,
-    this.isActive = true,
-  }) : super._();
+  const _$ProjectImpl(
+      {required this.id,
+      required this.clientId,
+      required this.name,
+      this.description,
+      this.budget,
+      required this.createdAt,
+      this.isActive = true})
+      : super._();
 
   factory _$ProjectImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProjectImplFromJson(json);
@@ -246,16 +236,8 @@ class _$ProjectImpl extends _Project {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    clientId,
-    name,
-    description,
-    budget,
-    createdAt,
-    isActive,
-  );
+  int get hashCode => Object.hash(runtimeType, id, clientId, name, description,
+      budget, createdAt, isActive);
 
   /// Create a copy of Project
   /// with the given fields replaced by the non-null parameter values.
@@ -267,20 +249,21 @@ class _$ProjectImpl extends _Project {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ProjectImplToJson(this);
+    return _$$ProjectImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _Project extends Project {
-  const factory _Project({
-    required final String id,
-    required final String clientId,
-    required final String name,
-    final String? description,
-    final double? budget,
-    required final DateTime createdAt,
-    final bool isActive,
-  }) = _$ProjectImpl;
+  const factory _Project(
+      {required final String id,
+      required final String clientId,
+      required final String name,
+      final String? description,
+      final double? budget,
+      required final DateTime createdAt,
+      final bool isActive}) = _$ProjectImpl;
   const _Project._() : super._();
 
   factory _Project.fromJson(Map<String, dynamic> json) = _$ProjectImpl.fromJson;

@@ -12,8 +12,7 @@ part of 'time_entry.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 TimeEntry _$TimeEntryFromJson(Map<String, dynamic> json) {
   return _TimeEntry.fromJson(json);
@@ -45,16 +44,15 @@ abstract class $TimeEntryCopyWith<$Res> {
   factory $TimeEntryCopyWith(TimeEntry value, $Res Function(TimeEntry) then) =
       _$TimeEntryCopyWithImpl<$Res, TimeEntry>;
   @useResult
-  $Res call({
-    String id,
-    String projectId,
-    DateTime startTime,
-    DateTime? endTime,
-    String? description,
-    bool isBillable,
-    List<DateTime> pausedAt,
-    List<DateTime> resumedAt,
-  });
+  $Res call(
+      {String id,
+      String projectId,
+      DateTime startTime,
+      DateTime? endTime,
+      String? description,
+      bool isBillable,
+      List<DateTime> pausedAt,
+      List<DateTime> resumedAt});
 }
 
 /// @nodoc
@@ -81,43 +79,40 @@ class _$TimeEntryCopyWithImpl<$Res, $Val extends TimeEntry>
     Object? pausedAt = null,
     Object? resumedAt = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            projectId: null == projectId
-                ? _value.projectId
-                : projectId // ignore: cast_nullable_to_non_nullable
-                      as String,
-            startTime: null == startTime
-                ? _value.startTime
-                : startTime // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
-            endTime: freezed == endTime
-                ? _value.endTime
-                : endTime // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
-            description: freezed == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            isBillable: null == isBillable
-                ? _value.isBillable
-                : isBillable // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            pausedAt: null == pausedAt
-                ? _value.pausedAt
-                : pausedAt // ignore: cast_nullable_to_non_nullable
-                      as List<DateTime>,
-            resumedAt: null == resumedAt
-                ? _value.resumedAt
-                : resumedAt // ignore: cast_nullable_to_non_nullable
-                      as List<DateTime>,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      projectId: null == projectId
+          ? _value.projectId
+          : projectId // ignore: cast_nullable_to_non_nullable
+              as String,
+      startTime: null == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isBillable: null == isBillable
+          ? _value.isBillable
+          : isBillable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pausedAt: null == pausedAt
+          ? _value.pausedAt
+          : pausedAt // ignore: cast_nullable_to_non_nullable
+              as List<DateTime>,
+      resumedAt: null == resumedAt
+          ? _value.resumedAt
+          : resumedAt // ignore: cast_nullable_to_non_nullable
+              as List<DateTime>,
+    ) as $Val);
   }
 }
 
@@ -125,21 +120,19 @@ class _$TimeEntryCopyWithImpl<$Res, $Val extends TimeEntry>
 abstract class _$$TimeEntryImplCopyWith<$Res>
     implements $TimeEntryCopyWith<$Res> {
   factory _$$TimeEntryImplCopyWith(
-    _$TimeEntryImpl value,
-    $Res Function(_$TimeEntryImpl) then,
-  ) = __$$TimeEntryImplCopyWithImpl<$Res>;
+          _$TimeEntryImpl value, $Res Function(_$TimeEntryImpl) then) =
+      __$$TimeEntryImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String id,
-    String projectId,
-    DateTime startTime,
-    DateTime? endTime,
-    String? description,
-    bool isBillable,
-    List<DateTime> pausedAt,
-    List<DateTime> resumedAt,
-  });
+  $Res call(
+      {String id,
+      String projectId,
+      DateTime startTime,
+      DateTime? endTime,
+      String? description,
+      bool isBillable,
+      List<DateTime> pausedAt,
+      List<DateTime> resumedAt});
 }
 
 /// @nodoc
@@ -147,9 +140,8 @@ class __$$TimeEntryImplCopyWithImpl<$Res>
     extends _$TimeEntryCopyWithImpl<$Res, _$TimeEntryImpl>
     implements _$$TimeEntryImplCopyWith<$Res> {
   __$$TimeEntryImplCopyWithImpl(
-    _$TimeEntryImpl _value,
-    $Res Function(_$TimeEntryImpl) _then,
-  ) : super(_value, _then);
+      _$TimeEntryImpl _value, $Res Function(_$TimeEntryImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of TimeEntry
   /// with the given fields replaced by the non-null parameter values.
@@ -165,60 +157,58 @@ class __$$TimeEntryImplCopyWithImpl<$Res>
     Object? pausedAt = null,
     Object? resumedAt = null,
   }) {
-    return _then(
-      _$TimeEntryImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        projectId: null == projectId
-            ? _value.projectId
-            : projectId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        startTime: null == startTime
-            ? _value.startTime
-            : startTime // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
-        endTime: freezed == endTime
-            ? _value.endTime
-            : endTime // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
-        description: freezed == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        isBillable: null == isBillable
-            ? _value.isBillable
-            : isBillable // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        pausedAt: null == pausedAt
-            ? _value._pausedAt
-            : pausedAt // ignore: cast_nullable_to_non_nullable
-                  as List<DateTime>,
-        resumedAt: null == resumedAt
-            ? _value._resumedAt
-            : resumedAt // ignore: cast_nullable_to_non_nullable
-                  as List<DateTime>,
-      ),
-    );
+    return _then(_$TimeEntryImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      projectId: null == projectId
+          ? _value.projectId
+          : projectId // ignore: cast_nullable_to_non_nullable
+              as String,
+      startTime: null == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isBillable: null == isBillable
+          ? _value.isBillable
+          : isBillable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      pausedAt: null == pausedAt
+          ? _value._pausedAt
+          : pausedAt // ignore: cast_nullable_to_non_nullable
+              as List<DateTime>,
+      resumedAt: null == resumedAt
+          ? _value._resumedAt
+          : resumedAt // ignore: cast_nullable_to_non_nullable
+              as List<DateTime>,
+    ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$TimeEntryImpl extends _TimeEntry {
-  const _$TimeEntryImpl({
-    required this.id,
-    required this.projectId,
-    required this.startTime,
-    this.endTime,
-    this.description,
-    this.isBillable = true,
-    final List<DateTime> pausedAt = const [],
-    final List<DateTime> resumedAt = const [],
-  }) : _pausedAt = pausedAt,
-       _resumedAt = resumedAt,
-       super._();
+  const _$TimeEntryImpl(
+      {required this.id,
+      required this.projectId,
+      required this.startTime,
+      this.endTime,
+      this.description,
+      this.isBillable = true,
+      final List<DateTime> pausedAt = const [],
+      final List<DateTime> resumedAt = const []})
+      : _pausedAt = pausedAt,
+        _resumedAt = resumedAt,
+        super._();
 
   factory _$TimeEntryImpl.fromJson(Map<String, dynamic> json) =>
       _$$TimeEntryImplFromJson(json);
@@ -275,25 +265,22 @@ class _$TimeEntryImpl extends _TimeEntry {
             (identical(other.isBillable, isBillable) ||
                 other.isBillable == isBillable) &&
             const DeepCollectionEquality().equals(other._pausedAt, _pausedAt) &&
-            const DeepCollectionEquality().equals(
-              other._resumedAt,
-              _resumedAt,
-            ));
+            const DeepCollectionEquality()
+                .equals(other._resumedAt, _resumedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    projectId,
-    startTime,
-    endTime,
-    description,
-    isBillable,
-    const DeepCollectionEquality().hash(_pausedAt),
-    const DeepCollectionEquality().hash(_resumedAt),
-  );
+      runtimeType,
+      id,
+      projectId,
+      startTime,
+      endTime,
+      description,
+      isBillable,
+      const DeepCollectionEquality().hash(_pausedAt),
+      const DeepCollectionEquality().hash(_resumedAt));
 
   /// Create a copy of TimeEntry
   /// with the given fields replaced by the non-null parameter values.
@@ -305,21 +292,22 @@ class _$TimeEntryImpl extends _TimeEntry {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TimeEntryImplToJson(this);
+    return _$$TimeEntryImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _TimeEntry extends TimeEntry {
-  const factory _TimeEntry({
-    required final String id,
-    required final String projectId,
-    required final DateTime startTime,
-    final DateTime? endTime,
-    final String? description,
-    final bool isBillable,
-    final List<DateTime> pausedAt,
-    final List<DateTime> resumedAt,
-  }) = _$TimeEntryImpl;
+  const factory _TimeEntry(
+      {required final String id,
+      required final String projectId,
+      required final DateTime startTime,
+      final DateTime? endTime,
+      final String? description,
+      final bool isBillable,
+      final List<DateTime> pausedAt,
+      final List<DateTime> resumedAt}) = _$TimeEntryImpl;
   const _TimeEntry._() : super._();
 
   factory _TimeEntry.fromJson(Map<String, dynamic> json) =

@@ -16,13 +16,11 @@ _$TimeEntryImpl _$$TimeEntryImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['endTime'] as String),
       description: json['description'] as String?,
       isBillable: json['isBillable'] as bool? ?? true,
-      pausedAt:
-          (json['pausedAt'] as List<dynamic>?)
+      pausedAt: (json['pausedAt'] as List<dynamic>?)
               ?.map((e) => DateTime.parse(e as String))
               .toList() ??
           const [],
-      resumedAt:
-          (json['resumedAt'] as List<dynamic>?)
+      resumedAt: (json['resumedAt'] as List<dynamic>?)
               ?.map((e) => DateTime.parse(e as String))
               .toList() ??
           const [],
