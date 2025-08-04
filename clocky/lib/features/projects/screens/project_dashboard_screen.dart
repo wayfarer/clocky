@@ -8,6 +8,8 @@ import '../../clients/providers/clients_provider.dart';
 import '../providers/projects_provider.dart';
 import '../widgets/project_progress_card.dart';
 import '../widgets/recent_activity_list.dart';
+import '../widgets/project_form_dialog.dart';
+import 'project_details_screen.dart';
 
 class ProjectDashboardScreen extends ConsumerWidget {
   const ProjectDashboardScreen({super.key});
@@ -201,16 +203,38 @@ class ProjectDashboardScreen extends ConsumerWidget {
   }
 
   void _showProjectDetails(BuildContext context, Project project) {
-    // TODO: Implement project details screen
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Project details coming soon!'),
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ProjectDetailsScreen(project: project),
       ),
     );
   }
 
   void _showAddProjectDialog(BuildContext context, WidgetRef ref) {
-    // We'll keep using the existing project dialog for now
-    // TODO: Create a new enhanced project dialog
+    final clients = ref.read(clientsProvider);
+    if (clients.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please add a client first'),
+        ),
+      );
+      return;
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) => ProjectFormDialog(
+        clients: clients,
+        onSave: (clientId, name, description, budget) {
+          final project = Project.create(
+            clientId: clientId,
+            name: name,
+            description: description,
+            budget: budget,
+          );
+          ref.read(projectsProvider.notifier).addProject(project);
+        },
+      ),
+    );
   }
 }

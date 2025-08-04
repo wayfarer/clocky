@@ -28,6 +28,11 @@ class ProjectsNotifier extends StateNotifier<List<Project>> {
     ];
   }
 
+  Future<void> toggleProjectStatus(Project project) async {
+    final updatedProject = project.copyWith(isActive: !project.isActive);
+    await updateProject(updatedProject);
+  }
+
   List<Project> getProjectsForClient(String clientId) {
     return state.where((p) => p.clientId == clientId).toList();
   }
