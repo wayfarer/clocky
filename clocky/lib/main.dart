@@ -25,7 +25,7 @@ class MyApp extends ConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     
     return MaterialApp(
-      title: 'Clocky Timer',
+      title: 'Clocky Work',
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       themeMode: themeMode,
@@ -66,7 +66,7 @@ class MainScreen extends ConsumerWidget {
                 ),
               ),
               Text(
-                'Timer',
+                'Work',
                 style: GoogleFonts.orbitron(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
