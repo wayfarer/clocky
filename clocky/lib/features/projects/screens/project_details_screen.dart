@@ -8,6 +8,7 @@ import '../../clients/providers/clients_provider.dart';
 import '../providers/projects_provider.dart';
 import '../widgets/grouped_time_entries.dart';
 import '../widgets/project_form_dialog.dart';
+import '../../timer/widgets/start_timer_dialog.dart';
 
 class ProjectDetailsScreen extends ConsumerWidget {
   final Project project;
@@ -152,12 +153,53 @@ class ProjectDetailsScreen extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // TODO: Start timer for this project
+      floatingActionButton: Builder(
+        builder: (context) {
+          final timerState = ref.watch(timerProvider);
+          final currentEntry = timerState.currentEntry;
+
+          // If no timer is running, show start timer button
+          if (currentEntry == null) {
+            return FloatingActionButton.extended(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => StartTimerDialog(
+                    projects: [project],
+                    clients: [client],
+                    initialProjectId: project.id,
+                    onStart: (_, description, isBillable) {
+                      ref.read(timerProvider.notifier).startTimer(
+                        projectId: project.id,
+                        description: description,
+                        isBillable: isBillable,
+                      );
+                    },
+                  ),
+                );
+              },
+              icon: const Icon(Icons.play_arrow),
+              label: const Text('Start Timer'),
+            );
+          }
+
+          // If timer is running for this project, show stop button
+          if (currentEntry.projectId == project.id) {
+            return FloatingActionButton.extended(
+              onPressed: () => ref.read(timerProvider.notifier).stopTimer(),
+              icon: const Icon(Icons.stop),
+              label: const Text('Stop Timer'),
+              backgroundColor: Theme.of(context).colorScheme.error,
+            );
+          }
+
+          // If timer is running for a different project, show disabled button
+          return FloatingActionButton.extended(
+            onPressed: null, // Disabled
+            icon: const Icon(Icons.timer),
+            label: const Text('Timer Running'),
+          );
         },
-        icon: const Icon(Icons.play_arrow),
-        label: const Text('Start Timer'),
       ),
     );
   }

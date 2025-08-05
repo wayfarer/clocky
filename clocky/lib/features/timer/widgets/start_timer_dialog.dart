@@ -7,12 +7,14 @@ class StartTimerDialog extends ConsumerStatefulWidget {
   final List<Project> projects;
   final List<Client> clients;
   final Function(String projectId, String? description, bool isBillable) onStart;
+  final String? initialProjectId;
 
   const StartTimerDialog({
     super.key,
     required this.projects,
     required this.clients,
     required this.onStart,
+    this.initialProjectId,
   });
 
   @override
@@ -20,9 +22,15 @@ class StartTimerDialog extends ConsumerStatefulWidget {
 }
 
 class _StartTimerDialogState extends ConsumerState<StartTimerDialog> {
-  String? selectedProjectId;
+  late String? selectedProjectId;
   final descriptionController = TextEditingController();
   bool isBillable = true;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedProjectId = widget.initialProjectId;
+  }
 
   @override
   void dispose() {
@@ -32,7 +40,6 @@ class _StartTimerDialogState extends ConsumerState<StartTimerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     
     return AlertDialog(
       title: const Text('Start Timer'),
