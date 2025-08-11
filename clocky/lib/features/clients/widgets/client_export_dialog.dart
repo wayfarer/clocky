@@ -25,16 +25,20 @@ class _ClientExportDialogState extends State<ClientExportDialog> {
     // Default to current month
     final now = DateTime.now();
     startDate = DateTime(now.year, now.month, 1);
-    endDate = DateTime(now.year, now.month + 1, 0);
+    // Get the last day of the current month
+    endDate = DateTime(now.year, now.month + 1, 1).subtract(const Duration(days: 1));
   }
 
   Future<void> _selectDate(BuildContext context, bool isStartDate) async {
     final initialDate = isStartDate ? startDate : endDate;
+    final now = DateTime.now();
+    final lastDate = DateTime(now.year, now.month, now.day);
+    
     final picked = await showDatePicker(
       context: context,
-      initialDate: initialDate,
+      initialDate: initialDate.isAfter(lastDate) ? lastDate : initialDate,
       firstDate: DateTime(2020),
-      lastDate: DateTime.now(),
+      lastDate: lastDate,
     );
 
     if (picked != null) {

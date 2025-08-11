@@ -80,7 +80,7 @@ class ExportService {
 
       for (final entry in projectEntries) {
         final hours = entry.duration.inMinutes / 60.0;
-        final amount = hours * client.hourlyRate;
+        final amount = entry.calculateBillableAmount(client.hourlyRate);
         projectTotal += entry.duration;
         projectAmount += amount;
 
@@ -111,7 +111,7 @@ class ExportService {
 
     for (final entry in filteredEntries) {
       totalDuration += entry.duration;
-      totalAmount += (entry.duration.inMinutes / 60.0) * client.hourlyRate;
+      totalAmount += entry.calculateBillableAmount(client.hourlyRate);
     }
 
     buffer.writeln();

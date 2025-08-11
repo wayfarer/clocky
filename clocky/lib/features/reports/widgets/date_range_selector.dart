@@ -63,32 +63,71 @@ class DateRangeSelector extends ConsumerWidget {
     WidgetRef ref,
     DateRange currentRange,
   ) async {
+    final now = DateTime.now();
     final initialDateRange = DateTimeRange(
       start: currentRange.start,
       end: currentRange.end,
     );
 
-    final pickedRange = await showDateRangePicker(
-      context: context,
-      firstDate: DateTime(2000),
-      lastDate: DateTime.now(),
-      initialDateRange: initialDateRange,
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            datePickerTheme: DatePickerThemeData(
-              backgroundColor: Theme.of(context).colorScheme.surface,
+    try {
+      final pickedRange = await showDateRangePicker(
+        context: context,
+        firstDate: DateTime(2000),
+        lastDate: DateTime(now.year, now.month, now.day + 1), // Allow selecting today + 1 day
+        initialDateRange: initialDateRange,
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              datePickerTheme: DatePickerThemeData(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+              ),
             ),
-          ),
-          child: child!,
+            child: child!,
+          );
+        },
+      );
+
+      if (pickedRange != null) {
+        ref.read(dateRangeProvider.notifier).state = DateRange.custom(
+          pickedRange.start,
+          pickedRange.end,
         );
-      },
+      }
+    } catch (e) {
+      // Fallback to individual date pickers if range picker fails
+      await _showFallbackDatePickers(context, ref, currentRange);
+    }
+  }
+
+  Future<void> _showFallbackDatePickers(
+    BuildContext context,
+    WidgetRef ref,
+    DateRange currentRange,
+  ) async {
+    final now = DateTime.now();
+    
+    // Show start date picker
+    final startDate = await showDatePicker(
+      context: context,
+      initialDate: currentRange.start,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(now.year, now.month, now.day + 1),
     );
 
-    if (pickedRange != null) {
+    if (startDate == null) return;
+
+    // Show end date picker
+    final endDate = await showDatePicker(
+      context: context,
+      initialDate: currentRange.end.isBefore(startDate) ? startDate : currentRange.end,
+      firstDate: startDate,
+      lastDate: DateTime(now.year, now.month, now.day + 1),
+    );
+
+    if (endDate != null) {
       ref.read(dateRangeProvider.notifier).state = DateRange.custom(
-        pickedRange.start,
-        pickedRange.end,
+        startDate,
+        endDate,
       );
     }
   }
