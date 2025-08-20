@@ -118,29 +118,42 @@ class TimerScreen extends ConsumerWidget {
             label: const Text('Start Timer'),
           ),
         ] else ...[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
             children: [
-              if (currentEntry?.isPaused ?? false) ...[
-                FilledButton.icon(
-                  onPressed: () => ref.read(timerProvider.notifier).resumeTimer(),
-                  icon: const Icon(Icons.play_arrow),
-                  label: const Text('Resume'),
-                ),
-              ] else ...[
-                FilledButton.icon(
-                  onPressed: () => ref.read(timerProvider.notifier).pauseTimer(),
-                  icon: const Icon(Icons.pause),
-                  label: const Text('Pause'),
-                ),
-              ],
-              const SizedBox(width: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (currentEntry?.isPaused ?? false) ...[
+                    FilledButton.icon(
+                      onPressed: () => ref.read(timerProvider.notifier).resumeTimer(),
+                      icon: const Icon(Icons.play_arrow),
+                      label: const Text('Resume'),
+                    ),
+                  ] else ...[
+                    FilledButton.icon(
+                      onPressed: () => ref.read(timerProvider.notifier).pauseTimer(),
+                      icon: const Icon(Icons.pause),
+                      label: const Text('Pause'),
+                    ),
+                  ],
+                  const SizedBox(width: 16),
+                  FilledButton.icon(
+                    onPressed: () => ref.read(timerProvider.notifier).stopTimer(),
+                    icon: const Icon(Icons.stop),
+                    label: const Text('Stop'),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: Theme.of(ref.context).colorScheme.error,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
               FilledButton.icon(
-                onPressed: () => ref.read(timerProvider.notifier).stopTimer(),
-                icon: const Icon(Icons.stop),
-                label: const Text('Stop'),
+                onPressed: () => ref.read(timerProvider.notifier).submitCurrentTime(),
+                icon: const Icon(Icons.check),
+                label: const Text('Submit Time'),
                 style: FilledButton.styleFrom(
-                  backgroundColor: Theme.of(ref.context).colorScheme.error,
+                  backgroundColor: Theme.of(ref.context).colorScheme.primary,
                 ),
               ),
             ],

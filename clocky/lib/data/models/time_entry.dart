@@ -34,16 +34,39 @@ class TimeEntry with _$TimeEntry {
   }
 
   Duration get duration {
-    Duration total = endTime?.difference(startTime) ?? DateTime.now().difference(startTime);
-    
-    // Subtract paused durations
-    for (int i = 0; i < pausedAt.length; i++) {
-      final pauseTime = pausedAt[i];
-      final resumeTime = i < resumedAt.length ? resumedAt[i] : DateTime.now();
-      total -= resumeTime.difference(pauseTime);
+    // For completed entries, use the actual end time
+    if (endTime != null) {
+      Duration total = endTime!.difference(startTime);
+      
+      // Subtract paused durations for completed entries
+      for (int i = 0; i < pausedAt.length; i++) {
+        final pauseTime = pausedAt[i];
+        final resumeTime = i < resumedAt.length ? resumedAt[i] : endTime!;
+        
+        // Only subtract if resume time is after pause time
+        if (resumeTime.isAfter(pauseTime)) {
+          total -= resumeTime.difference(pauseTime);
+        }
+      }
+      
+      return total.isNegative ? Duration.zero : total;
+    } else {
+      // For active entries, use current time
+      Duration total = DateTime.now().difference(startTime);
+      
+      // Subtract paused durations for active entries
+      for (int i = 0; i < pausedAt.length; i++) {
+        final pauseTime = pausedAt[i];
+        final resumeTime = i < resumedAt.length ? resumedAt[i] : DateTime.now();
+        
+        // Only subtract if resume time is after pause time
+        if (resumeTime.isAfter(pauseTime)) {
+          total -= resumeTime.difference(pauseTime);
+        }
+      }
+      
+      return total.isNegative ? Duration.zero : total;
     }
-    
-    return total;
   }
 
   bool get isActive => endTime == null;

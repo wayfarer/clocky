@@ -195,6 +195,23 @@ class _TimeEntryDialogState extends State<TimeEntryDialog> {
           },
           child: const Text('Save'),
         ),
+        FilledButton(
+          onPressed: () {
+            // Force save without validation - for cases where duration calculation is broken
+            final updatedEntry = widget.entry.copyWith(
+              description: _descriptionController.text.trim(),
+              startTime: _startTime,
+              endTime: _endTime ?? DateTime.now(), // Force end time if null
+              isBillable: _isBillable,
+            );
+            widget.onSave(updatedEntry);
+            Navigator.pop(context);
+          },
+          style: FilledButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+          ),
+          child: const Text('Submit Time'),
+        ),
       ],
     );
   }

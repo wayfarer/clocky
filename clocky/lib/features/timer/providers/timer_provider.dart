@@ -84,6 +84,27 @@ class TimerNotifier extends StateNotifier<TimerState> {
     );
   }
 
+  Future<void> submitCurrentTime() async {
+    if (state.currentEntry == null) return;
+
+    _timer?.cancel();
+    _timer = null;  // Clear the timer reference
+    
+    // Force end the timer and save it regardless of current state
+    final submittedEntry = state.currentEntry!.copyWith(
+      endTime: DateTime.now(),
+    );
+
+    await _storage.saveTimeEntry(submittedEntry);
+    
+    final updatedEntries = [...state.savedEntries, submittedEntry];
+    state = TimerState(  // Create a fresh state
+      currentEntry: null,
+      displayDuration: null,
+      savedEntries: updatedEntries,
+    );
+  }
+
   Future<void> updateTimeEntry(TimeEntry entry) async {
     await _storage.saveTimeEntry(entry);
     
