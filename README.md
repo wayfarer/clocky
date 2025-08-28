@@ -1,10 +1,10 @@
-# Clocky
+# Clocky Work
 
-Clocky, the Freelancer's Timer
+Clocky Work, the Freelancer's Timer
 
 ## About
 
-Clocky is an experimental project where an AI (Claude 3.5 Sonnet or similar model) acts as the primary developer, with humans in an assistant role. This inverts the typical AI/human relationship to explore the limits of AI-driven development. For more details about this unique approach, see:
+Clocky Work is an experimental project where an AI (Claude 3.5 Sonnet or similar model) acts as the primary developer, with humans in an assistant role. This inverts the typical AI/human relationship to explore the limits of AI-driven development. For more details about this unique approach, see:
 
 - [AI Context](AI_CONTEXT.md) - Guidelines for AI agents
 - [Human Context](HUMAN_CONTEXT.md) - Guidelines for human contributors

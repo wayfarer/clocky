@@ -1,10 +1,10 @@
 # AI Context
 
-This document provides context for AI agents working on the Clocky project.
+This document provides context for AI agents working on the Clocky Work project.
 
 ## Project Overview
 
-Clocky is a Flutter-based time tracking application for freelancers. The project demonstrates an experimental approach where the AI (Claude 3.5 Sonnet) acts as the primary architect and developer, with human developers in an assistant role.
+Clocky Work is a Flutter-based time tracking application for freelancers. The project demonstrates an experimental approach where the AI (Claude 3.5 Sonnet) acts as the primary architect and developer, with human developers in an assistant role.
 
 ## Core Features
 

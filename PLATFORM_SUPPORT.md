@@ -1,6 +1,6 @@
 # Platform Support
 
-This document outlines Clocky's platform-specific implementations and feature availability.
+This document outlines Clocky Work's platform-specific implementations and feature availability.
 
 ## Feature Matrix
 

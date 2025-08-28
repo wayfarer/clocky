@@ -59,7 +59,7 @@ class MainScreen extends ConsumerWidget {
               Icon(Icons.schedule, size: 24),
               SizedBox(width: 8),
               Text(
-                'Clocky ',
+                'Clocky Work ',
                 style: GoogleFonts.rubikVinyl(
                   fontSize: 28,
                   fontWeight: FontWeight.w500,

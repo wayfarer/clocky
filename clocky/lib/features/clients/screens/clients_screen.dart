@@ -79,7 +79,7 @@ class ClientsScreen extends ConsumerWidget {
           );
 
           final fileService = ref.read(fileServiceProvider);
-          final fileName = 'clocky_${client.name.toLowerCase().replaceAll(' ', '_')}_'
+          final fileName = 'clockwork_${client.name.toLowerCase().replaceAll(' ', '_')}_'
               '${startDate.year}${startDate.month.toString().padLeft(2, '0')}.csv';
           
           final filePath = await fileService.saveFile(

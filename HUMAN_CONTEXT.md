@@ -1,6 +1,6 @@
 # Human Context
 
-This document provides guidance for human contributors working on the Clocky project.
+This document provides guidance for human contributors working on the Clocky Work project.
 
 ## Project Philosophy
 

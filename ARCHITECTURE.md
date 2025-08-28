@@ -1,6 +1,6 @@
 # Architecture
 
-This document outlines the architectural decisions and patterns used in Clocky.
+This document outlines the architectural decisions and patterns used in Clocky Work.
 
 ## Core Principles
 
